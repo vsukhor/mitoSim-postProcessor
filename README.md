@@ -1,8 +1,8 @@
 ### mitosim-postProcessor
 
-Complements **mitoSim** simulator of mitochondria
+Complements [**mitoSim**](https://github.com/vsukhor/mitoSim) - a simulator of mitochondria as spacelss graph.
 
-This repository contains Python 3 scripts useful for:
+This repository contains Python 3 code for:
 
 * Numerical solution and analysis of differential-algebraic system approximating the mitochondria graph [src/odes.py](src/odes.py)
 
