@@ -29,7 +29,7 @@ To install and use the notebook:
 
 The scripts were tested with Python 3.9 and jupyter-notebook v. 6.0.3.
 
-**mitosim-postProcessor** is available under the terms of the MIT [license](LICENSE.md).
+**mitoSim-postProcessor** is available under the terms of the MIT [license](LICENSE.md).
 
 ![col](imgs/img.png)
 
