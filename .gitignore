@@ -1,0 +1,5 @@
+.DS_Store
+.idea/
+.ipynb_*
+__pycache__
+venv*/
