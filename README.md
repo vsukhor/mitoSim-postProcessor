@@ -1,4 +1,4 @@
-### mitosim-postProcessor
+### mitoSim-postProcessor
 
 Complements [**mitoSim**](https://github.com/vsukhor/mitoSim) - the simulator of cell mitochondria as a spacelss graph.
 
