@@ -3,14 +3,16 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.integrate as spi
+import scipy.integrate
+import scipy.linalg
+from matplotlib import cm
+from matplotlib import colors as crs
+from numpy.polynomial import Polynomial as Pol
 
 
 def node_numbers_equil(c1, c2, h):
     """ Equilibrium solution of the ODE system.
     """
-
-    from numpy.polynomial import Polynomial as Pol
 
     # Eq. for the free ends is a 3rd degree polynomial. Its roots are:
     n1 = Pol([
@@ -37,7 +39,7 @@ def node_numbers_equil(c1, c2, h):
     return n1, n2, n3
 
 
-def x2(x13, n):
+def num_deg2(x13, n):
     """ Number of bulk nodes given the total graph size 'n'
         and the number of free ends x13[0] and the brnchings x13[1].
     """
@@ -110,68 +112,9 @@ def plot_node_numbers(x, y, h, z3, figsize=None):
     plt.show()
 
 
-def plot_p(x_, y_, h, z_3):
-
-    import plotly.graph_objects as go
-
-    def trace(x, y, z3):
-
-        colors = ['r', 'g', 'b']
-        xx, yy = np.meshgrid(np.log10(x), np.log10(y))
-        z = [np.array([[oo[i] for oo in o] for o in z3]) for i in range(2)]
-
-        return \
-            go.Surface(x=xx, y=yy, z=z[0], showscale=False,
-                       surfacecolor=colors[0], opacity=0.9, visible=False), \
-            go.Surface(x=xx, y=yy, z=z[1], showscale=False,
-                       surfacecolor=colors[1], opacity=0.9, visible=False), \
-            go.Surface(x=xx, y=yy, z=z[2], showscale=False,
-                       surfacecolor=colors[2], opacity=0.9, visible=False)
-
-    # Create figure
-    fig = go.Figure()
-
-    # Add traces, one for each slider step
-    for j in range(len(h)):
-        fig.add_trace(trace(x_, y_, z_3[j]))
-
-    fig.show()
-
-
-def plot_p_simple(x_, y_, _, z_3):
-
-    import plotly.graph_objects as go
-
-    def trace(x, y, z3):
-
-        colors = {'r': [[0, 'rgb(255,0,0)'], [1, 'rgb(255,0,0)']],
-                  'g': [[0, 'rgb(0,255,0)'], [1, 'rgb(0,255,0)']],
-                  'b': [[0, 'rgb(0,0,255)'], [1, 'rgb(0,0,255)']]}
-        xx, yy = np.meshgrid(np.log10(x), np.log10(y))
-        z = [np.array([[oo[i] for oo in o] for o in z3]) for i in range(3)]
-
-        return [go.Surface(x=xx, y=yy, z=z[0], showscale=False,
-                           colorscale=colors['r'], opacity=0.9, visible=True),
-                go.Surface(x=xx, y=yy, z=z[1], showscale=False,
-                           colorscale=colors['g'], opacity=0.9, visible=True),
-                go.Surface(x=xx, y=yy, z=z[2], showscale=False,
-                           colorscale=colors['b'], opacity=0.9, visible=True)]
-
-    # Create figure
-    fig = go.Figure()
-
-    for ss in trace(x_, y_, z_3[0]):
-        fig.add_trace(ss)
-    fig.update_layout(title_text="Node numbers")
-    fig.show()
-
-
 def plot_phase_equil(x123, c2, h, figsize):
     """ Plot the phase space of node numbers.
     """
-
-    from matplotlib import cm
-    from matplotlib import colors as crs
 
     fig = plt.figure(figsize=figsize)
     fig.suptitle(f'Node numbers for h={h} at equilibrium.')
@@ -203,15 +146,16 @@ def is_stable(x, b, a1, a2, h):
         'b', 'a1', 'a2' and 'L' are the parameter values.
     """
 
-    import scipy.linalg as la
-
     n1, n2 = a1.shape[0], a2.shape[0]
 
-    x = [np.array([[oo[i] for oo in o] for o in x]) for i in range(3)]
+    x = [np.array([[oo[i] for oo in o] for o in x])
+         for i in range(3)]
     jac = np.array([[_jacobian(x[0][i, j], x[2][i, j], a1[i], a2[j], b, h)
                     for j in range(n2)]
                    for i in range(n1)])
-    lamda = np.array([[la.eigvals(oo) for oo in o] for o in jac])
+    lamda = np.array([[scipy.linalg.eigvals(oo)
+                       for oo in o]
+                      for o in jac])
 
     return [[np.all(lamda[i, j, :].real < 0.)
              for j in range(n2)]
@@ -277,7 +221,7 @@ def main():
         init = -np.floor(2 * m / 3)
         return np.logspace(init, init + m - 1, num=m, base=2)
 
-    m1, m2, mh = 57, 57, 1      # grid dimensions
+    m1, m2 = 57, 57             # grid dimensions
     b = 1                       # fission rate constant
     a1, a2 = a(m1), a(m2)       # fusion rate constant
     c1, c2 = a1/b, a2/b         # reduced rates
@@ -293,7 +237,7 @@ def main():
         plot_node_numbers(c1, c2, hh, xx, figsize=(15, 5))
 
     # Plot the solution in phase coordinates:
-    plot_phase_equil(x, c2, h, figsize=(10,10))
+    plot_phase_equil(x, c2, h, figsize=(10, 10))
 
     # Examine the steady state solution.
     # The equilibrium is asymptotically stable if real parts of all
@@ -322,10 +266,10 @@ def main():
     x123 = []
     for x10, x30 in zip(x1_0, x3_0):
         # new scipy ivp solver: requires scipy >= 1.4:
-        sol = spi.solve_ivp(eqs, t_span=tspan, y0=[x10, x30],
+        sol = scipy.integrate.solve_ivp(eqs, t_span=tspan, y0=[x10, x30],
                             args=(bt, a1t, a2t, ht), dense_output=True)
         x13 = sol.sol(tsol)
-        x123.append([x13[0,:], x2(x13, ht), x13[1,:]])
+        x123.append([x13[0, :], num_deg2(x13, ht), x13[1, :]])
 
     plot_time_evol(b, a1t, a2t, ht, x123, tsol, figsize=(16, 5))
 

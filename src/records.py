@@ -80,8 +80,10 @@ class Records:
         self.tau.append(float(q[4]))
         self.rt['code'].append(int(q[6]))
         self.rt['str'].append(q[7])
-        [self.n[i]['val'].append(int(q[9+i])) for i in range(3)]
-        [self.m[k].append(int(q[13+2*i])) for i, k in enumerate(self.m.keys())]
+        for i in range(3):
+            self.n[i]['val'].append(int(q[9+i]))
+        for i, k in enumerate(self.m.keys()):
+            self.m[k].append(int(q[13+2*i]))
         self.mtm.append(int(q[21]))
         self.mtn.append(int(q[23]))
         self.cln.append(int(q[25]))
@@ -108,10 +110,10 @@ class Records:
                 r.t = [t / 3600 for t in r.time]
             elif unit == 'min':
                 r.t = [t / 60 for t in r.time]
-            elif unit == 's' or unit == 'sec':
-                r.t = [t for t in r.time]
+            elif unit in ('s', 'sec'):
+                r.t = r.time
             else:
-                assert (False, 'Wrong time unit')
+                Exception('Wrong time unit')
 
         Records.time_unit = unit
         Records.time_label = 'Time (' + unit + ')'

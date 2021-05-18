@@ -21,15 +21,20 @@ else:
 
 
 def import_log_files(path, runs):
+    """Import simulation logs to extract time evolution.
+    """
 
     pat = str(runs[0]) + ' : ' + str(runs[1])
 
     if isinstance(path, str):   # jupyter notebooks
         path = Path(path)
 
-    fn = lambda k: (path / f'log_m_{k}.txt')
-    append_static_recs = \
-        lambda rs: [Records.runs_read_in.append(u) for u in rs.runs]
+    def fn(k):
+        return path / f'log_m_{k}.txt'
+
+    def append_static_recs(rs):
+        for u in rs.runs:
+            Records.runs_read_in.append(u)
 
     cf, r = _read_log(fn(runs[0]))
     recs = [r]
@@ -40,7 +45,7 @@ def import_log_files(path, runs):
             recs.append(r)
             append_static_recs(r)
         else:
-            print(f'Error: Runs between {runs[0]} and {runs[1]} do use '
+            print(f'Error: Runs between {runs[0]} and {runs[1]} use '
                   f'differing configurations at run {i}. \nExiting!')
             sys.exit(-1)
 #    ravg = Records.average(recs)
