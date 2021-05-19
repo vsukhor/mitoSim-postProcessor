@@ -1,5 +1,6 @@
 .DS_Store
 .idea/
 .ipynb_*
+.tox/
 __pycache__
 venv*/
