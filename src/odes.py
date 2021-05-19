@@ -11,7 +11,8 @@ from numpy.polynomial import Polynomial as Pol
 
 
 def node_numbers_equil(c1, c2, h):
-    """ Equilibrium solution of the ODE system.
+    """
+    Equilibrium solution of the ODE system.
     """
 
     # Eq. for the free ends is a 3rd degree polynomial. Its roots are:
@@ -40,8 +41,9 @@ def node_numbers_equil(c1, c2, h):
 
 
 def num_deg2(x13, n):
-    """ Number of bulk nodes given the total graph size 'n'
-        and the number of free ends x13[0] and the brnchings x13[1].
+    """
+    Number of bulk nodes given the total graph size 'n'
+    and the number of free ends x13[0] and the brnchings x13[1].
     """
 
     try:
@@ -57,7 +59,8 @@ def num_deg2(x13, n):
 
 
 def eqs(_, x, b, a1, a2, h):
-    """ Right-hand side of the ODE system.
+    """
+    Right-hand side of the ODE system.
     """
 
     x1, x3 = x
@@ -77,7 +80,8 @@ def eqs(_, x, b, a1, a2, h):
 
 
 def _jacobian(x1, x3, a1, a2, b, h):
-    """ Jacobian matrix for the ODE system.
+    """
+    Jacobian matrix for the ODE system.
     """
 
     return np.array([[a1 - b - a2 * h + (a2 - 2 * a1) * x1 + 1.5 * a2 * x3,
@@ -87,7 +91,9 @@ def _jacobian(x1, x3, a1, a2, b, h):
 
 
 def plot_node_numbers(x, y, h, z3, figsize=None):
-    """ Plot node numbers 'z3' as a function of reduced parameters 'x' and 'y'.
+    """
+    Plot node numbers 'z3' as a function of reduced parameters
+    'x' and 'y'.
     """
 
     fig = plt.figure(figsize=figsize)
@@ -113,7 +119,8 @@ def plot_node_numbers(x, y, h, z3, figsize=None):
 
 
 def plot_phase_equil(x123, c2, h, figsize):
-    """ Plot the phase space of node numbers.
+    """
+    Plot the phase space of node numbers.
     """
 
     fig = plt.figure(figsize=figsize)
@@ -142,8 +149,10 @@ def plot_phase_equil(x123, c2, h, figsize):
 
 
 def is_stable(x, b, a1, a2, h):
-    """ True iff the ODE system solution 'x' is asymptotically stable.
-        'b', 'a1', 'a2' and 'L' are the parameter values.
+    """
+    True iff the ODE system solution 'x' is asymptotically stable.
+
+    'b', 'a1', 'a2' and 'L' are the parameter values.
     """
 
     n1, n2 = a1.shape[0], a2.shape[0]
@@ -163,10 +172,12 @@ def is_stable(x, b, a1, a2, h):
 
 
 def plot_stability(b, c1, c2, h, st):
-    """ Visualize the stability 'st':
-        blue marker -> is stable
-        red marker -> is unstable
-        'b', 'c1', 'c2' and 'L' are the parameter values.
+    """
+    Visualize the stability 'st'.
+
+    blue marker -> is stable
+    red marker -> is unstable
+    'b', 'c1', 'c2' and 'L' are the parameter values.
     """
 
     fig = plt.figure()
@@ -183,8 +194,8 @@ def plot_stability(b, c1, c2, h, st):
 
 
 def plot_time_evol(b, a1, a2, h, sol, t, figsize=None):
-
-    """ Plot time-dependent solution.
+    """
+    Plot time-dependent solution.
 
     Plot solution 'sol' versus time 't' for each of the node types.
     'b', 'a1', 'a2' and 'L' are the parameter values.
@@ -210,7 +221,9 @@ def plot_time_evol(b, a1, a2, h, sol, t, figsize=None):
 
 
 def main():
-    """Analysis of the deterministc approximation to the mitochondrial graph.
+    """
+    Analysis of the deterministc approximation to the
+    mitochondrial graph.
     """
 
     # Initialize the parameters:
@@ -266,8 +279,10 @@ def main():
     x123 = []
     for x10, x30 in zip(x1_0, x3_0):
         # new scipy ivp solver: requires scipy >= 1.4:
-        sol = scipy.integrate.solve_ivp(eqs, t_span=tspan, y0=[x10, x30],
-                            args=(bt, a1t, a2t, ht), dense_output=True)
+        sol = scipy.integrate.solve_ivp(
+            eqs, t_span=tspan, y0=[x10, x30],
+            args=(bt, a1t, a2t, ht), dense_output=True
+        )
         x13 = sol.sol(tsol)
         x123.append([x13[0, :], num_deg2(x13, ht), x13[1, :]])
 

@@ -1,4 +1,5 @@
-""" Analysis of the simulation logs.
+"""
+Analysis of the simulation logs.
 
 An examplary script for loading and the basic analysis of the simulation
 log records. Functionality is similar to the accompanying jupyter
@@ -21,7 +22,8 @@ else:
 
 
 def import_log_files(path, runs):
-    """Import simulation logs to extract time evolution.
+    """
+    Import simulation logs to extract time evolution.
     """
 
     pat = str(runs[0]) + ' : ' + str(runs[1])
@@ -55,7 +57,8 @@ def import_log_files(path, runs):
 
 
 def _read_log(fname):
-    """ Read a log file to produce instance of Config and Records.
+    """
+    Read a log file to produce instance of Config and Records.
 
     :param fname: Name of the log file
     """
@@ -88,7 +91,8 @@ def _read_log(fname):
 
 def plot_timedata(name, x, y, fit=None, n=1,
                   figsize=None, labels=None):
-    """ Plot data 'y' and eventually 'fit', both specified at 'x'.
+    """
+    Plot data 'y' and eventually 'fit', both specified at 'x'.
     """
 
     fig = plt.figure(figsize=figsize)
@@ -114,13 +118,12 @@ def plot_timedata(name, x, y, fit=None, n=1,
 
 def main():
 
-    # Set the directory to the log files and the Monte Carlo run indexes:
+    # Set the directory to the log files and the Monte Carlo runs:
 
-    path = Path('')    # <== Set full path to your data here !!!!
-    # And remove the example path:
+    # Set full path to your data here:
     path = Path(__file__).parent.parent / 'data'
 
-    runs = [28, 29]     # <== set run indexes here !!!
+    runs = [28, 29]     # <== set run indexes here.
 
     # Import data from the files:
     recs, pat = import_log_files(path, runs)
@@ -144,7 +147,8 @@ def main():
 
     plot_timedata('total scores', t, scores_total, n=len(recs), labels=labels)
 
-    # Plot evolution of the the number of nodes, by node degree (1 to 3):
+    # Plot evolution of the the number of nodes,
+    # by node degree (1 to 3):
     Records.plot_nodes(recs, pat)
 
     # ... and the number of segments, by segment type. The type is
@@ -153,12 +157,12 @@ def main():
     # latter designetes a disconnected cycle)
     Records.plot_segments_by_type(recs, pat)
 
-    # Here is the total number of segments:
+    # The total number of segments:
     plot_timedata('total number of segments',
                   t, [r.mtn for r in recs],
                   n=len(recs), labels=labels)
 
-    # and the number of segment clusters (disconnected graph components):
+    # The number of segment clusters (disconnected graph components):
     plot_timedata('number of clusters',
                   t, [r.cln for r in recs],
                   n=len(recs), labels=labels)

@@ -1,4 +1,6 @@
-"""Container class for time-dependent variables recorded in the log file.
+"""Container class for time-dependent variables.
+
+The variables are read from the simulation log file.
 """
 
 import numpy as np
@@ -6,7 +8,8 @@ import matplotlib.pyplot as plt
 
 
 class Records:
-    """ Container for time-dependent variables recorded in the log file.
+    """
+    Container for time-dependent variables recorded in the log file.
     """
 
     #: Run indexes.
@@ -21,7 +24,8 @@ class Records:
         #: all the fields except 'runs',
         self.runs = None
 
-        # 'seed', 'lattice_dims' and 'inds' are average values over the 'runs'.
+        # 'seed', 'lattice_dims' and 'inds' are average values
+        # over the 'runs'.
         #: Rng seeds used to produce the runs.
         self.seed = None
 
@@ -68,7 +72,8 @@ class Records:
                       'fusion1L': {'num': [], 'val': []}}
 
     def add(self, rec):
-        """ Extract information from a string record 'rec'.
+        """
+        Extract information from a string record 'rec'.
 
         Add the result to the already available data.
         """
@@ -98,7 +103,8 @@ class Records:
 
     @staticmethod
     def scale_time_to(recs, unit):
-        """ Scale time to the desired unit 'unit'.
+        """
+        Scale time to the desired unit 'unit'.
 
         Acceptable units: 'd', 'hours', 'min', 's', 'secs'
         """
@@ -120,7 +126,8 @@ class Records:
 
     @staticmethod
     def plot_nodes(recs, pat, with_fit=False, figsize=None):
-        """ Plot time evolution of the number of nodes.
+        """
+        Plot time evolution of the number of nodes.
         """
 
         ls = [':', '--', '-.']
@@ -148,8 +155,8 @@ class Records:
 
     @staticmethod
     def plot_segments_by_type(recs, pat, figsize=None):
-
-        """ Plot time evolution of the number of segments.
+        """
+        Plot time evolution of the number of segments.
         """
 
         ls = ['-', ':', '--', '-.']
