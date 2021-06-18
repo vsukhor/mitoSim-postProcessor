@@ -1,0 +1,36 @@
+Run 55 started: Thu Jun 17 10:37:49 2021
+ 
+workingDirOut = "/Users/a/runs"
+runIni = 55 
+runEnd = 56 
+
+Reading config from: "/Users/vs/Mitofraps/CellSim_2012_v.3/runs/config_sample.txt" 
+timeTotal = 500 
+logFrequency = 1000 
+saveFrequency = 50000 
+edgeLength = 0.2 
+mtmassini = 200 
+segmassini = 20 
+use_fission = 1 
+rate_fission = 1 
+use_11_fusion = 1 
+fusion_rate_11 = 0.1 
+use_12_fusion = 1 
+fusion_rate_12 = 0.01 
+use_1L_fusion = 1 
+fusion_rate_1L = 0.01 
+RUN = 55 
+SEED = 1597630491 
+Generated mtnum 10 of mtmass: 200 
+0 t 0.000000e+00 tau 0.000000e+00 rt 00018446744073709551615 X 20 190 0 m11 10 m22 0 m33 0 m13 0 mtm 200 mtn 10 cln 10 scores: fission 0 0.000000e+00 fusion 0 1.900000e+01 fusion 0 7.560000e+01 fusion 0 0.000000e+00 
+1000 t 1.484095e+00 tau 7.380715e-04 rt 002 fusion X 53 130 29 m11 6 m22 0 m33 23 m13 41 mtm 200 mtn 70 cln 13 scores: fission 501 3.470000e+02 fusion 360 1.868000e+02 fusion 138 7.000000e+01 fusion 1 0.000000e+00 
+2000 t 2.923092e+00 tau 1.166529e-03 rt 001 fusion X 61 120 33 m11 11 m22 0 m33 30 m13 39 mtm 200 mtn 80 cln 15 scores: fission 1002 3.390000e+02 fusion 746 2.686000e+02 fusion 251 7.897000e+01 fusion 1 0.000000e+00 
+339000 t 4.990165e+02 tau 9.439263e-04 rt 000 fission X 70 132 22 m11 19 m22 0 m33 17 m13 32 mtm 200 mtn 68 cln 24 scores: fission 169507 3.300000e+02 fusion 128727 3.623000e+02 fusion 40721 1.054100e+02 fusion 45 0.000000e+00
+
+Final state: 
+339741 t 5.000018e+02 tau 2.037875e-03 rt 001 fusion X 68 127 26 m11 15 m22 0 m33 20 m13 38 mtm 200 mtn 73 cln 23 scores: fission 169876 3.320000e+02 fusion 129009 3.413000e+02 fusion 40811 9.415000e+01 fusion 45 0.000000e+00 
+Final mtnum: 73
+ 
+Run 55 finished: Thu Jun 17 10:38:22 2021
+ after 33.031855 sec
+ 
