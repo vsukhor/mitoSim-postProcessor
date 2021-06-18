@@ -14,19 +14,22 @@ For convenience, the scripts are accompanied by the corresponding ipython notebo
 
 It is recommended that the work is done using Python virtual environment:
 
-`$ python3 -m venv venv`  
-`$ source ./venv/bin/activate`  
-`(venv) $ pip install -r requirements.txt`
-
+```bash
+$ python3 -m venv venv  
+$ source ./venv/bin/activate  
+(venv) $ pip install -r requirements.txt   
+```
 Then, the script can be launched the ordinary way:
 
-`(venv) $ python src/odes.py`  
-
+```bash
+(venv) $ python src/odes.py   
+```
 To install and use the notebook:
 
-`(venv) $ pip install jupyter`  
-`(venv) $ jupyter notebook odes.ipynb`
-
+```bash
+(venv) $ pip install jupyter  
+(venv) $ jupyter notebook odes.ipynb   
+```
 The scripts were tested with Python 3.9 and jupyter-notebook v. 6.0.3.
 
 **mitoSim-postProcessor** is available under the terms of the [MIT license](LICENSE.md).
