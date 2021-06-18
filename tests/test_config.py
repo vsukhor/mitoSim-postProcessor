@@ -48,4 +48,3 @@ def test_eq(config55, config56):
 
     assert config55 == config55
     assert config55 != config56
-

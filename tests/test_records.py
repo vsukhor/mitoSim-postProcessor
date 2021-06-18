@@ -66,21 +66,29 @@ def test_readin(lines):
         assert a == b
     for a, b in zip(rs.cln, [15, 11]):
         assert a == b
-    for a, b in zip(rs.score['fission']['num'], [7502, 8499]):
+    for a, b in zip(rs.score['fission']['num'],
+                    [7502, 8499]):
         assert a == b
-    for a, b in zip(rs.score['fission']['val'], [3.430000e+02, 3.530000e+02]):
+    for a, b in zip(rs.score['fission']['val'],
+                    [3.430000e+02, 3.530000e+02]):
         assert a == b
-    for a, b in zip(rs.score['fusion11']['num'], [5641, 6394]):
+    for a, b in zip(rs.score['fusion11']['num'],
+                    [5641, 6394]):
         assert a == b
-    for a, b in zip(rs.score['fusion11']['val'], [2.196000e+02, 1.599000e+02]):
+    for a, b in zip(rs.score['fusion11']['val'],
+                    [2.196000e+02, 1.599000e+02]):
         assert a == b
-    for a, b in zip(rs.score['fusion12']['num'], [1856, 2106]):
+    for a, b in zip(rs.score['fusion12']['num'],
+                    [1856, 2106]):
         assert a == b
-    for a, b in zip(rs.score['fusion12']['val'], [7.501000e+01, 6.252000e+01]):
+    for a, b in zip(rs.score['fusion12']['val'],
+                    [7.501000e+01, 6.252000e+01]):
         assert a == b
-    for a, b in zip(rs.score['fusion1L']['num'], [1, 1]):
+    for a, b in zip(rs.score['fusion1L']['num'],
+                    [1, 1]):
         assert a == b
-    for a, b in zip(rs.score['fusion1L']['val'], [ 0.000000e+00,  0.000000e+00]):
+    for a, b in zip(rs.score['fusion1L']['val'],
+                    [0.000000e+00,  0.000000e+00]):
         assert a == b
 
 
